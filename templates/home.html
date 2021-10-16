@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Login/Register{% endblock %}
+
+<div class="card">
+    {% load i18n %}
+    {% load account %}
+</div>
+
+{% block content %}
+
+<div class="conteiner-fluid">
+        <div class="card-body">
+            <div class="card">
+            <div class="col-md-12">
+            <br>
+            <h4>Seja bem vindo, usabilidades deste framework:</h4>
+
+            <p> 1 - cadastrar (será direcionado para tela de verificação)</p>
+            <p> 2 - exibe um template informando que link foi enviado para caixa de mail cadastrado</p>
+            <p> 3 - exibe formato do email enviado + o link </p>
+            <p> 4 - clicar sobre o link (será direcionado para confirmação do email)</p>
+            <p> 5 - clicar sobre botão confirmar (será direcionado para completar o cadastro)</p>
+            <p> 6 - preenchido o cadastro (será direcionado para home/dahsboard/qq lugar)</p>
+            <p> 7 - acessar página de edição do cadastro</p>
+            <p> 8 - editar dados cadastrados e salvar (será direcionado para home/dahsboard/qq lugar)</p>
+            <p> 9 - confirmar dados alterados</p>
+            <p> 10 - logout</p>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}
+
+

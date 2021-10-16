@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Account Inactive" %}{% endblock %}
+
+{% block content %}
+
+<div class="conteiner-fluid">
+    <div class="container">
+        <div class="card">
+            <div>
+                <div class="col-md-12">
+                <h2 class="font-weight-bold mt-3">{% trans "Account Inactive" %}</h2>
+
+                <p>{% trans "This account is inactive." %}</p>
+                <p>Favor acessar o email cadastrado e verificar se recebeu uma mensagem de confirmação de email, aprovação ou recusa do cadastro.</p>
+                <p>Caso não tenha recebido, significa que o processo de aprovação ainda está em andamento.</p>
+                <p>Gentileza aguardar mensagem de resposta que será enviada para seu email.</p>
+            </div>  
+        </div>
+    </div>
+</div>
+{% endblock %}
+

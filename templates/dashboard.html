@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Painel{% endblock %}
+
+<div class="card">
+    {% load i18n %}
+    {% load account %}
+</div>
+
+{% block content %}
+
+<head>
+    <style>
+        section {
+            display: flex;
+            flex-direction: row;
+            }
+        ul.side {
+            margin: auto;
+        }
+    </style>
+</head>
+
+
+<body>
+
+<div class="container-fluid">
+    <div class="card">
+        <br>
+        <div class="col-12">
+            <ul class="breadcrumb" style="border: 1px solid rgba(0,0,0,.125); background-color:#212529">
+            {% block breadcrumb %} 
+            <div style="color: white;">
+                <h4 >Painel do usuário <h1>{{ user.username }}</h1></h4>
+            {% endblock %}
+            </div>
+            </ul>
+        </div>
+
+        <section>
+        <aside class="col-2">
+            {% block menu_options %}
+            <div class="card">
+                <br>
+                <ul class="side nav flex-column nav-pills">
+                    <li class="pure-menu-heading">
+                    <a class="pure-menu-heading" href="{% url 'user:detail_user' user.pk %}">Usuário</a>
+                    </li>
+                    <li class="pure-menu-heading">
+                    <a class="pure-menu-heading" href="{% url 'profile:list_user_profile' %}">Perfil</a>
+                    </li>
+                    <li class="pure-menu-heading">
+                    <a class="pure-menu-heading" href="{% url 'pets:list_pets_user' %}">Pets</a>
+                    </li>
+                    <li class="pure-menu-heading">
+                    <a class="pure-menu-heading" href="#">Outros</a>
+                    </li>
+                    <li class="pure-menu-heading">
+                    <a class="pure-menu-heading" href="#">Outros</a>
+                    </li>
+                </ul>
+                <br>
+            </div>
+            {% endblock %}
+        </aside>
+        
+        {% block dashboard %}
+        {% endblock dashboard %}
+
+
+        </section>
+        <br>
+    </div>  
+    <br>          
+</div>
+</div>
+</body>
+</div>
+{% endblock content %}
+

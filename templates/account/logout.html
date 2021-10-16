@@ -1,0 +1,26 @@
+{% extends 'account/dashboard.html' %}
+
+{% block title %}Sair{% endblock %}
+
+
+{% block dashboard %}
+<div class="conteiner-fluid">
+    <div class="card">
+        <div class="container">
+            <div class="container"><br>
+                <h2>Sair</h2>
+                <p>Você tem certeza que deseja sair?</p>
+                <div>
+                    <form method="post" action="{% url 'account_logout' %}">
+                        {% csrf_token %}
+                        <button class="btn btn-danger" type="submit">Sair</button>
+                    </form>
+                    <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+    </div>
+</div>
+{% endblock dashboard %}
