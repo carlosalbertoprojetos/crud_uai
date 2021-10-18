@@ -7,7 +7,7 @@ from django.utils.translation import gettext as _
 
 
 class UserManager(BaseUserManager):
-    def create_user(self, email, username, password=None, is_active=True, is_staff=False):
+    def create_user(self, email, username, password=None, is_active=True, is_staff=False, is_superuser=False):
         if not email:
             raise ValueError('O usuário precisa ter um email válido.')
         if not password:
@@ -20,6 +20,7 @@ class UserManager(BaseUserManager):
         user_obj.username = username
         user_obj.ativo = is_active
         user_obj.equipe = is_staff
+        user_obj.superusuario  = is_superuser 
         user_obj.save(using=self._db)
         return user_obj
 
@@ -37,7 +38,8 @@ class UserManager(BaseUserManager):
             email,
             username,
             password=password,
-            is_staff=True
+            is_staff=True,
+            is_superuser =True
         )
         return user
 
@@ -56,6 +58,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     username    = models.CharField('Nome/Razão Social', max_length=255, unique=True)
     cpf_cnpj    = models.CharField('CPF/CNPJ', max_length=14, unique=True, null=True, blank=True)
     celular     = models.IntegerField('Celular', null=True)
+    
     cep         = models.CharField('Cep', max_length=8)
     endereco    = models.CharField('Endereco', max_length=255)
     numero      = models.CharField('Número', max_length=8)
@@ -63,8 +66,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     estado      = models.CharField('Estado', max_length=255)    
     
     situacao    = models.CharField('Situação', max_length=13, choices=PROFILE_SITUACAO, default='Pendente')
-    equipe      = models.BooleanField('Membro da equipe', default=False)
     ativo       = models.BooleanField('Usuário ativo', default=True)
+    equipe      = models.BooleanField('Membro da equipe', default=False)
+    superusuario= models.BooleanField('Admin', default=True)
 
     criadoem     = models.DateTimeField(auto_now_add=True, verbose_name=_('Criado em'))
     atualizadoem = models.DateTimeField(auto_now=True, verbose_name=_('Atualizado em'))
@@ -116,6 +120,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     def is_staff(self):
         "O usuário é um membro da equipe?"
         return self.equipe
+    
+    @property
+    def is_superuser(self):
+        "O usuário é um membro da equipe?"
+        return self.superusuario
 
 
     class Meta:

@@ -10,14 +10,14 @@ class Custom_User_Admin(UserAdmin):
     add_form = Cadastro_Usuario_Form
     form = Editar_Usuario_Form
     model = User
-    list_display = ('email', 'username', 'cpf_cnpj', 'equipe', 'situacao', 'ativo',)
+    list_display = ('email', 'username', 'cpf_cnpj', 'equipe', 'situacao', 'ativo', 'superusuario',)
     list_filter = ('username', 'cpf_cnpj', 'equipe', 'ativo',)
     fieldsets = (
-        (None, {'fields': ('username', 'email',)}),
+        ('Usuário', {'fields': ('username', 'email',)}),
         ('Documento', {'fields': ('cpf_cnpj',)}),
         ('Contato', {'fields': ('celular',)}),
         ('Endereço', {'fields': ('endereco',)}),
-        ('Permissões', {'fields': ('situacao', 'equipe', 'ativo')}),
+        ('Permissões', {'fields': ('situacao', 'equipe', 'ativo', 'superusuario',)}),
     )
     search_fields = ('username', 'email', 'cpf_cnpj',)
     ordering = ('-criadoem', )
