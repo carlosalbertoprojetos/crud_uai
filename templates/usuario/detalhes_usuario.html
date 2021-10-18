@@ -1,0 +1,29 @@
+{% extends 'account/dashboard.html' %}
+
+
+{% block dashboard %}
+
+
+
+<div class="container" style='margin-top:2px'>
+    <div class="card">
+        <div class="card-header">
+            <h1>Detalhes do usuário</h1>
+        </div>
+    </div>
+    <br>
+    <div class="card">
+        <div class="card-body">
+            <table>
+                <h3 class="title">email: {{ object.email }}</h3>
+                <hr>
+            </table>
+            <legend>Editar</legend>
+            <a href="{% url 'usuario:editar_usuario' object.pk %}" class='btn btn-primary'>Email</a>
+            <a href="{% url 'account_change_password' %}" class='btn btn-primary'>Senha</a>
+        </div>
+    </div>
+</div>
+
+{% endblock dashboard %}
+                

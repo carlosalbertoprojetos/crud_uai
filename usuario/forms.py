@@ -1,21 +1,24 @@
 from django import forms
-# from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
-
-
-# User = get_user_model()
 
 from .models import User
 
+User = get_user_model()
 
-class CustomUserCreationForm(forms.ModelForm):
+
+
+# class MyCustomInput(InputMask):
+#    mask = {'cpf': '000.000.000-00'}, {'cnpj': '00.000.000/0000-00'}
+
+class Cadastro_Usuario_Form(forms.ModelForm):
 
     password = forms.CharField(widget=forms.PasswordInput)
     password_2 = forms.CharField(label='Confirmar senha', widget=forms.PasswordInput)
 
     class Meta:
         model = User
-        fields = ['email', 'password', 'nome', 'cpf', 'razao_social', 'cnpj', 'celular', 'endereco', 'situacao', 'equipe', 'ativo', 'admin',]
+        fields = ['email', 'password', 'username', 'cpf_cnpj', 'celular', 'endereco', 'situacao', 'equipe', 'ativo',]
 
     def clean(self):
         cleaned_data = super().clean()
@@ -33,27 +36,29 @@ class CustomUserCreationForm(forms.ModelForm):
         return user
 
 
-class CustomUserChangeForm(forms.ModelForm):
+class Editar_Usuario_Form(forms.ModelForm):
 
-    password = ReadOnlyPasswordHashField()
-
-    class Meta:
-        model = User
-        fields = ['email', 'password', 'nome', 'cpf', 'razao_social', 'cnpj', 'celular', 'endereco', 'situacao', 'equipe', 'ativo', 'admin',]
-
-    def clean_password(self):
-        return self.initial["password"]
-
-
-
-class PF_Register_Form(forms.ModelForm):
+    # password = ReadOnlyPasswordHashField()
 
     class Meta:
         model = User
-        fields = ['email', 'nome', 'cpf', 'celular', 'endereco', ]
+        fields = ['email', 'username', 'cpf_cnpj', 'celular', 'endereco',]
+
+    # def clean_password(self):
+    #     return self.initial["password"]
 
 
-class PJ_Register_Form(forms.ModelForm):
+
+# class PF_Register_Form(forms.ModelForm):
+class Register_Form(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['email', 'razao_social', 'cnpj', 'celular', 'endereco', ]
+        fields = ['email', 'username', 'cpf_cnpj', 'celular', 'endereco', ]
+
+
+# class PJ_Register_Form(forms.ModelForm):
+#     class Meta:
+#         model = User
+#         fields = ['email', 'username', 'cpf_cnpj', 'celular', 'endereco', ]
+
+

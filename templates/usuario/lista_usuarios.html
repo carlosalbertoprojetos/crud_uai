@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Perfil{% endblock title %}
+
+{% block content %}
+
+<div class="container justify-content-center" style='margin-top:2px'>
+    <div class="card">
+        <div class="card-header">
+            <h1>Usuários cadastrados</h1>
+        </div>
+    </div>
+    <br>
+
+    {% for user in object %}
+    <div class="card">
+        <div class="card-body">
+            <h3 class="title">Tipo: <a href="{% url 'usuario:editar_usuarios_admin' user.pk %}"> {{ user.username }}</a></h3>
+            <h6>Email:{{ user.email }} <br>
+                Ativo: {{ user.is_active }} 
+            </a></h6>
+        </div>
+    </div>
+    <br>
+    {% endfor %}
+
+</div>
+
+
+{% endblock content %}

@@ -22,24 +22,18 @@
 <header>
     <nav class="navbar navbar-expand navbar-dark mb-3" style="background-color:#212529" >
         <div class="container">
-            <a class="navbar-brand" href="{% url 'home' %}">Login/Register Base</a>
+            <a class="navbar-brand" href="{% url 'home' %}">Uai - Ads</a>
             <ul class="navbar-nav" style="text-align:right;">
                 {% if user.is_authenticated %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'user:dashboard' %}">DashBoard</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="">Menu</a>
+                    <a class="nav-link" href="{% url 'usuario:dashboard' %}">DashBoard</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/admin/">Admin</a>
                 </li>
                 {% if user.is_superuser %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'user:list_users' %}">Users</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'pets:list_pets' %}">Pets</a>
+                    <a class="nav-link" href="">Users</a>
                 </li>
                 {% endif %}
                 <li class="nav-item">

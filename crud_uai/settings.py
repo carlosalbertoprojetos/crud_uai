@@ -202,6 +202,7 @@ SOCIALACCOUNT_PROVIDERS = {
 # Autenticar por meio do User criado
 AUTH_USER_MODEL = 'usuario.User'
 
+
 # Retirar o Remember-me / Lembrar
 ACCOUNT_SESSION_REMEMBER = False
 
@@ -212,6 +213,9 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 ACCOUNT_USERNAME_REQUIRED = False
 # Método de autenticação: email
 ACCOUNT_AUTHENTICATION_METHOD = "email"
+
+# ACCOUNT_AUTHENTICATION_METHOD =  ("email" | "cpf" | "username")
+
 # Email obrigatório
 ACCOUNT_EMAIL_REQUIRED = True
 # Email único
@@ -221,6 +225,7 @@ ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_EMAIL_VERIFICATION='mandatory'
 
 # ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = None
+
 # redirecionar após link de confirmação enviado
 # ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = '/profile/'
 
