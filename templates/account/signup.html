@@ -10,15 +10,26 @@
     <div class="container">
         <div class="card">
             <div class="col-md-12">
-            <h2 class="font-weight-bold mt-3">Cadastrar</h2>
-            <hr>
+                <h2 class="font-weight-bold mt-3">Cadastrar</h2>
+                <fieldset>
+                    <legend>{{ form.pessoa.label }}</legend>
+                    {% for pessoa in form.pessoa %}
+                    <div class="myradio">
+                        {{ pessoa }}
+                    </div>
+                    {% endfor %}
+                </fieldset>
+                <hr>
                 <form method="post">
                     {% csrf_token %}
                     {{ form|crispy }}
-                    <div>
-                    <button class="btn btn-primary" type="submit" href="#">Cadastrar</button>
-                    </div>
+                    <button class="btn btn btn-primary" type="submit" href="">Criar Conta</button>
                     <br>
+                </form>
+                    ---------------- ou ----------------
+                <br>
+                <a href="{ provider_login_url 'google' %}" type="button" aria-pressed="true">
+                <img src="https://img.icons8.com/fluent/50/000000/gmail.png"/></a>
                 </form>
             </div>
         </div>

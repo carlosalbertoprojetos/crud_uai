@@ -213,9 +213,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 ACCOUNT_USERNAME_REQUIRED = False
 # Método de autenticação: email
 ACCOUNT_AUTHENTICATION_METHOD = "email"
-
 # ACCOUNT_AUTHENTICATION_METHOD =  ("email" | "cpf" | "username")
-
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 # Email obrigatório
 ACCOUNT_EMAIL_REQUIRED = True
 # Email único
@@ -230,8 +229,8 @@ ACCOUNT_EMAIL_VERIFICATION='mandatory'
 # ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = '/profile/'
 
 # une um formulário ao cadastro
-# ACCOUNT_SIGNUP_FORM_CLASS = 'principal.forms.ProfileForm'
-# ACCOUNT_FORMS = {'principal.forms.ProfileForm':'signup'}
+ACCOUNT_SIGNUP_FORM_CLASS = 'usuario.forms.SignupForm'
+# ACCOUNT_FORMS = {'usuario.forms.SignupForm':'signup'}
 
 
 LOGIN_URL = '/accounts/login/'
