@@ -211,14 +211,14 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 #ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
 # Não precisa de username
 ACCOUNT_USERNAME_REQUIRED = False
-# Método de autenticação: email
-ACCOUNT_AUTHENTICATION_METHOD = "email"
-# ACCOUNT_AUTHENTICATION_METHOD =  ("email" | "cpf" | "username")
-ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 # Email obrigatório
 ACCOUNT_EMAIL_REQUIRED = True
 # Email único
 ACCOUNT_UNIQUE_EMAIL = True
+# Método de autenticação: email
+ACCOUNT_AUTHENTICATION_METHOD = "email"
+# ACCOUNT_AUTHENTICATION_METHOD =  ("email" | "cpf" | "username")
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 
 # confirmação de cadastro por email / loga somente após esta confirmação
 ACCOUNT_EMAIL_VERIFICATION='mandatory'

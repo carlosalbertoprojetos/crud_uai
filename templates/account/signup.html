@@ -11,14 +11,7 @@
         <div class="card">
             <div class="col-md-12">
                 <h2 class="font-weight-bold mt-3">Cadastrar</h2>
-                <fieldset>
-                    <legend>{{ form.pessoa.label }}</legend>
-                    {% for pessoa in form.pessoa %}
-                    <div class="myradio">
-                        {{ pessoa }}
-                    </div>
-                    {% endfor %}
-                </fieldset>
+
                 <hr>
                 <form method="post">
                     {% csrf_token %}

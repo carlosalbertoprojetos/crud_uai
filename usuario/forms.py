@@ -12,16 +12,34 @@ User = get_user_model()
 
 class SignupForm(forms.ModelForm):
 
-    REGIME_JURIDICO = {
-        ('0', 'Física'),
-        ('1', 'Jurídica'),
-    }
-   
-    pessoa = forms.ChoiceField(choices=REGIME_JURIDICO)
+    # pessoa = forms.CharField(widget=forms.RadioSelect)
 
     class Meta:
         model = User
         fields = ['pessoa','email',]
+    
+    # def save(self, commit=True):
+    #     user = super().save(commit=False)
+    #     user.pessoa = self.cleaned_data["pessoa"]
+    #     if commit:
+    #         user.save()
+    #     return user
+
+
+class Criar_Usuario_Admin(forms.ModelForm):
+
+    # REGIME_JURIDICO = {
+    #     ('PF', 'Física'),
+    #     ('PJ', 'Jurídica'),
+    # }
+
+    # pessoa = forms.ChoiceField(choices=REGIME_JURIDICO)
+    # password = forms.CharField(widget=forms.PasswordInput)
+    # password_2 = forms.CharField(label='Confirmar senha', widget=forms.PasswordInput)
+
+    class Meta:
+        model = User
+        fields = ['pessoa', 'email', 'equipe', 'ativo', 'superusuario',]
 
     # def clean(self):
     #     cleaned_data = super().clean()
@@ -32,11 +50,38 @@ class SignupForm(forms.ModelForm):
     #     return cleaned_data
 
     # def save(self, commit=True):
+    #     # Save the provided password in hashed format
     #     user = super().save(commit=False)
+    #     user.pessoa = self.cleaned_data["pessoa"]
     #     user.set_password(self.cleaned_data["password"])
     #     if commit:
     #         user.save()
     #     return user
+
+
+class Editar_Usuario_Admin(forms.ModelForm):
+
+    class Meta:
+        model = User
+        fields = ['pessoa', 'email', 'equipe', 'ativo', 'superusuario',]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 class Editar_Usuario_Form(forms.ModelForm):

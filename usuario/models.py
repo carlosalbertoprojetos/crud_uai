@@ -7,7 +7,7 @@ from django.utils.translation import gettext as _
 
 
 class UserManager(BaseUserManager):
-    def create_user(self,  email, pessoa, password=None, is_active=True, is_staff=False, is_superuser=False):
+    def create_user(self, email, pessoa, password=None, is_active=True, is_staff=False, is_superuser=False):
         if not email:
             raise ValueError('O usuário precisa ter um email válido.')
         if not password:
@@ -28,7 +28,7 @@ class UserManager(BaseUserManager):
     def create_staffuser(self, email, password=None):
         user = self.create_user(
             email,
-            pessoa='0',
+            pessoa='PF',
             password=password,
             is_staff=True
         )
@@ -37,7 +37,7 @@ class UserManager(BaseUserManager):
     def create_superuser(self, email, password=None):
         user = self.create_user(
             email,
-            pessoa='0',
+            pessoa='PF',
             password=password,
             is_staff=True,
             is_superuser =True
@@ -48,17 +48,17 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
 
-    # REGIME_JURIDICO = {
-    #     ('0', 'Pessoa Física'),
-    #     ('1', 'Pessoa Jurídica'),
-    # }
-   
-    pessoa      = models.CharField(max_length=255, null=True, blank=True)
+    PESSOA = {
+        ('PF', 'Física'),
+        ('PJ', 'Jurídica'),
+    }
+
     email       = models.EmailField('Email', max_length=255, unique=True)
+    pessoa      = models.CharField('Pessoa', max_length=255, choices=PESSOA)
         
     ativo       = models.BooleanField('Usuário ativo', default=True)
     equipe      = models.BooleanField('Membro da equipe', default=False)
-    superusuario= models.BooleanField('Admin', default=True)
+    superusuario= models.BooleanField('Admin', default=False)
 
     criadoem     = models.DateTimeField(auto_now_add=True, verbose_name=_('Criado em'))
     atualizadoem = models.DateTimeField(auto_now=True, verbose_name=_('Atualizado em'))
@@ -69,9 +69,6 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     objects = UserManager()
 
-
-    def get_full_name(self):
-        return self.email
 
     def __str__(self):
         return self.email
@@ -119,6 +116,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     class Meta:
         verbose_name = 'Usuário'
         verbose_name_plural = 'Usuários'
+
 
 
 class Perfil_Usuario(models.Model):       

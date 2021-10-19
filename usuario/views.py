@@ -47,6 +47,7 @@ class Editar_Usuarios_AdminView(LoginRequiredMixin, UpdateView):
         return super().form_valid(form)
 
 
+
 class Detalhes_Usuario_View(LoginRequiredMixin, DetailView):
     model = User
     template_name = 'usuario/detalhes_usuario.html'
