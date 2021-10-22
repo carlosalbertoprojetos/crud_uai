@@ -1,31 +1,34 @@
 from django.contrib import admin
+from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
-from .forms import Criar_Usuario_Admin, Editar_Usuario_Admin, Perfil_Form
-from .models import User, Perfil_Usuario
+
+from .forms import Perfil_Form
+from .models import Perfil_Usuario
 
 
-
-class Usuario_Admin(BaseUserAdmin):
-    add_form = Criar_Usuario_Admin
-    # form = Editar_Usuario_Admin
-
-    list_display = ('email', 'pessoa', 'ativo', 'equipe', 'superusuario',)
-    list_filter = ('equipe', 'ativo', 'email',)
+class UserAdmin(BaseUserAdmin):
     fieldsets = (
-        ('Usuário', {'fields': ('email', 'pessoa', )}),
-        ('Permissões', {'fields': ('ativo', 'equipe', 'superusuario',)}),
+        ('Usuário', {'fields': ('email', 'pessoa',)}),
+        ('Permissões', {'fields': ('groups', 'user_permissions'),}),
+        ('Datas importantes', {'fields': ('last_login', 'data_registro')}),
     )
+    
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('pessoa', 'email', 'password',)}
-        ),
+            'fields': ('email', 'password1', 'password2'),
+        }),
     )
-    search_fields = ('pessoa', 'email', 'ativo', 'equipe',)
-    ordering = ('-criadoem', )
+    list_display = ('email', 'pessoa', 'ativo', 'equipe', 'admin')
+    list_filter = ('pessoa', 'ativo', 'equipe',)
+    search_fields = ('email',)
+    ordering = ('email',)
 
-admin.site.register(User, Usuario_Admin)
+
+admin.site.register(get_user_model(), UserAdmin)
+
+
 
 
 class Perfil_Usuario_Admin(admin.ModelAdmin):

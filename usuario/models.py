@@ -5,117 +5,87 @@ from django.contrib.auth.models import (
 from django.contrib.auth.models import PermissionsMixin
 from django.utils.translation import gettext as _
 
+from datetime import datetime
+
 
 class UserManager(BaseUserManager):
-    def create_user(self, email, pessoa, password=None, is_active=True, is_staff=False, is_superuser=False):
+    
+    def create_user(self, pessoa, email, password=None, is_active=True, is_staff=False, is_superuser=False):
         if not email:
             raise ValueError('O usuário precisa ter um email válido.')
         if not password:
             raise ValueError('Precisa inserir a senha correta.')
-
-        user_obj = self.model(
-            email=self.normalize_email(email)
+        
+        user = self.model(email=self.normalize_email(email)
         )
-        user_obj.set_password(password)
-        user_obj.pessoa = pessoa
-        user_obj.ativo = is_active
-        user_obj.equipe = is_staff
-        user_obj.superusuario = is_superuser 
-        user_obj.save(using=self._db)
-        return user_obj
+        user.pessoa = pessoa
+        user.set_password(password)
+        user.ativo = is_active
+        user.equipe = is_staff
+        user.admin = is_superuser
+        user.save(using=self._db)
 
-
-    def create_staffuser(self, email, password=None):
-        user = self.create_user(
-            email,
-            pessoa='PF',
-            password=password,
-            is_staff=True
-        )
         return user
+        
 
     def create_superuser(self, email, password=None):
         user = self.create_user(
-            email,
-            pessoa='PF',
+            email=email,
             password=password,
+            pessoa='PF',
             is_staff=True,
-            is_superuser =True
+            is_superuser=True
         )
+
         return user
 
 
 
 class User(AbstractBaseUser, PermissionsMixin):
 
-    PESSOA = {
-        ('PF', 'Física'),
-        ('PJ', 'Jurídica'),
-    }
+    # username    = None
+    email       = models.EmailField('Email', unique=True) 
+    pessoa      = models.CharField('Pessoa', max_length=2)
 
-    email       = models.EmailField('Email', max_length=255, unique=True)
-    pessoa      = models.CharField('Pessoa', max_length=255, choices=PESSOA)
-        
-    ativo       = models.BooleanField('Usuário ativo', default=True)
-    equipe      = models.BooleanField('Membro da equipe', default=False)
-    superusuario= models.BooleanField('Admin', default=False)
+    ativo       = models.BooleanField(default=True)
+    equipe      = models.BooleanField(default=False)
+    admin       = models.BooleanField(default=False)
 
-    criadoem     = models.DateTimeField(auto_now_add=True, verbose_name=_('Criado em'))
-    atualizadoem = models.DateTimeField(auto_now=True, verbose_name=_('Atualizado em'))
-
-    USERNAME_FIELD  = 'email'
-    REQUIRED_FIELDS = []
-
-
+    data_registro = models.DateTimeField('Data do registro', default=datetime.now)
+    
     objects = UserManager()
+
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
 
 
     def __str__(self):
         return self.email
-
-    def has_perm(self, perm, obj=None):
-        "O usuário tem a permissão específica?"
-        return True
-
-    def has_module_perms(self, app_label):
-        "O usuário tem permissões para visualizar o aplicativo?"
-        return True
-
-
-    # def authenticate(self, username=None, password=None):
-    #     if '@' in username:
-    #         kwargs = {'email': username}
-    #     elif username is int(username):
-    #         # len(username) == 11
-    #         kwargs = {'cpf': username}
-    #     else:
-    #         kwargs = {'username': username}
-    #     try:
-    #         user = User.objects.get(**kwargs)
-    #         if user.check_password(password):
-    #             return user
-    #     except User.DoesNotExist:
-    #         return None
 
 
     @property
     def is_active(self):
         "A conta está ativa?"
         return self.ativo
-    
+
     @property
     def is_staff(self):
-        "O usuário é um membro da equipe?"
+        "O usuário é membro da equipe?"
         return self.equipe
-    
+
     @property
     def is_superuser(self):
-        "O usuário é um membro da equipe?"
-        return self.superusuario
+        "O usuário é Admin?"
+        return self.admin
+
+
+    objects = UserManager()
+
 
     class Meta:
-        verbose_name = 'Usuário'
-        verbose_name_plural = 'Usuários'
+        verbose_name = "Usuário"
+        verbose_name_plural = "Usuários"
 
 
 
@@ -127,7 +97,7 @@ class Perfil_Usuario(models.Model):
             ('2', 'Reprovado'),
     }
 
-    user        = models.ForeignKey(User, on_delete=models.CASCADE, related_name='perfil')
+    user        = models.OneToOneField(User, on_delete=models.CASCADE, related_name='perfil')
     nome        = models.CharField('Nome/Razão Social', max_length=255, unique=True)
     cpf_cnpj    = models.CharField('CPF/CNPJ', max_length=14, unique=True, null=True, blank=True)
     celular     = models.IntegerField('Celular', null=True)
@@ -143,7 +113,7 @@ class Perfil_Usuario(models.Model):
     atualizadoem = models.DateTimeField(auto_now=True, verbose_name=_('Atualizado em'))
 
     def __str__(self):
-        return self.nome
+        return self.user.email or self.nome or self.cpf_cnpj
 
     class Meta:
         verbose_name = 'Perfil'

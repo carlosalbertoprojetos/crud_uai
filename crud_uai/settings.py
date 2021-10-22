@@ -95,7 +95,7 @@ WSGI_APPLICATION = 'crud_uai.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': str(os.path.join(BASE_DIR / 'db.sqlite3')),
     }
 }
 
@@ -139,9 +139,9 @@ USE_TZ = True
 
 MEDIA_URL = '/media/'
 
-MEDIA_ROOT = 'media'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles', 'static')
 
 STATICFILES_DIRS = [
     'statics'
@@ -175,52 +175,35 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     },
 
-    'facebook': {
-        'METHOD': 'oauth2',
-        'SCOPE': ['email', 'public_profile', 'user_friends'],
-        'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
-        'INIT_PARAMS': {'cookie': True},
-        'FIELDS': [
-            'id',
-            'email',
-            'name',
-            'first_name',
-            'last_name',
-            'verified',
-            'locale',
-            'timezone',
-            'link',
-            'gender',
-            'updated_time',
-        ],
-        'EXCHANGE_TOKEN': True,
-        'VERIFIED_EMAIL': False,
-        'VERSION': 'v2.12',
-    },
 }
 
 # Autenticar por meio do User criado
 AUTH_USER_MODEL = 'usuario.User'
 
-
-# Retirar o Remember-me / Lembrar
-ACCOUNT_SESSION_REMEMBER = False
-
+# Faz com que o usuário, ao se cadastrar, receba um email de confirmação
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-# Só precisa digitar a senha uma vez
-#ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
-# Não precisa de username
+
+# Opção de Lembrar dados de cadastro para login
+ACCOUNT_SESSION_REMEMBER = True
+
+# Desvincula o username do User AbstractBaseUser
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_USERNAME_REQUIRED = False
+
+# Indica ser o email o campo de usuário
+ACCOUNT_USER_MODEL_EMAIL_FIELD = 'email'
+# Método de autenticação: email
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
 # Email obrigatório
 ACCOUNT_EMAIL_REQUIRED = True
 # Email único
 ACCOUNT_UNIQUE_EMAIL = True
-# Método de autenticação: email
-ACCOUNT_AUTHENTICATION_METHOD = "email"
+
 # ACCOUNT_AUTHENTICATION_METHOD =  ("email" | "cpf" | "username")
+# Desativa campo username
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 
-# confirmação de cadastro por email / loga somente após esta confirmação
+# Confirmação de cadastro por email / loga somente após esta confirmação
 ACCOUNT_EMAIL_VERIFICATION='mandatory'
 
 # ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = None
@@ -228,9 +211,17 @@ ACCOUNT_EMAIL_VERIFICATION='mandatory'
 # redirecionar após link de confirmação enviado
 # ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = '/profile/'
 
-# une um formulário ao cadastro
-ACCOUNT_SIGNUP_FORM_CLASS = 'usuario.forms.SignupForm'
-# ACCOUNT_FORMS = {'usuario.forms.SignupForm':'signup'}
+
+# Direciona para o form de cadastro
+ACCOUNT_FORMS = {'usuario.forms.Cadastro_Usuario_Form':'signup'}
+# Cadastro de usuário direcionado para Cadastrar_Usuário_Form
+ACCOUNT_SIGNUP_FORM_CLASS = 'usuario.forms.Cadastro_Usuario_Form'
+
+
+# Other settings
+# ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"
+# ACCOUNT_LOGIN_ON_PASSWORD_RESET = True
+# SOCIALACCOUNT_AUTO_SIGNUP = False
 
 
 LOGIN_URL = '/accounts/login/'
@@ -242,4 +233,4 @@ LOGOUT_REDIRECT_URL = '/'
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 
-
+SOCIALACCOUNT_QUERY_EMAIL = True
