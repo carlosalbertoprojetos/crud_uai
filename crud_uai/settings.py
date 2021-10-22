@@ -119,6 +119,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
@@ -186,7 +187,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # Opção de Lembrar dados de cadastro para login
 ACCOUNT_SESSION_REMEMBER = True
 
-# Desvincula o username do User AbstractBaseUser
+# # Desativa campo username do User AbstractBaseUser
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_USERNAME_REQUIRED = False
 
@@ -194,23 +195,20 @@ ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_USER_MODEL_EMAIL_FIELD = 'email'
 # Método de autenticação: email
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
+# ACCOUNT_AUTHENTICATION_METHOD =  ("email" | "cpf" | "name")
 # Email obrigatório
 ACCOUNT_EMAIL_REQUIRED = True
 # Email único
 ACCOUNT_UNIQUE_EMAIL = True
 
-# ACCOUNT_AUTHENTICATION_METHOD =  ("email" | "cpf" | "username")
-# Desativa campo username
-ACCOUNT_USER_MODEL_USERNAME_FIELD = None
-
 # Confirmação de cadastro por email / loga somente após esta confirmação
 ACCOUNT_EMAIL_VERIFICATION='mandatory'
 
-# ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = None
+# loga somente após esta confirmação
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
 
 # redirecionar após link de confirmação enviado
-# ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = '/profile/'
-
+ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/usuario/perfil/'
 
 # Direciona para o form de cadastro
 ACCOUNT_FORMS = {'usuario.forms.Cadastro_Usuario_Form':'signup'}
@@ -225,7 +223,7 @@ ACCOUNT_SIGNUP_FORM_CLASS = 'usuario.forms.Cadastro_Usuario_Form'
 
 
 LOGIN_URL = '/accounts/login/'
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = 'usuario:dashboard'
 LOGOUT_URL = 'logout'
 LOGOUT_REDIRECT_URL = '/'
 
@@ -234,3 +232,7 @@ CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 
 SOCIALACCOUNT_QUERY_EMAIL = True
+
+
+
+

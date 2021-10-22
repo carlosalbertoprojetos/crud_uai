@@ -97,9 +97,9 @@ class Perfil_Usuario(models.Model):
             ('2', 'Reprovado'),
     }
 
-    user        = models.OneToOneField(User, on_delete=models.CASCADE, related_name='perfil')
+    user        = models.OneToOneField(User, on_delete=models.CASCADE)
     nome        = models.CharField('Nome/Razão Social', max_length=255, unique=True)
-    cpf_cnpj    = models.CharField('CPF/CNPJ', max_length=14, unique=True, null=True, blank=True)
+    cpf_cnpj    = models.CharField('CPF/CNPJ', max_length=17, unique=True)
     celular     = models.IntegerField('Celular', null=True)
     
     cep         = models.CharField('Cep', max_length=8)
@@ -118,5 +118,7 @@ class Perfil_Usuario(models.Model):
     class Meta:
         verbose_name = 'Perfil'
         verbose_name_plural = 'Perfis'
+
+
 
 

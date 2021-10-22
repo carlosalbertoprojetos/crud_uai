@@ -1,30 +1,29 @@
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import DetailView
-from django.views.generic.edit import UpdateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.shortcuts import render
 from django.urls import reverse_lazy
 
 
-
-from .models import User
-from .forms import Editar_Usuario_Form
-
+from .models import User, Perfil_Usuario
+from .forms import Editar_Usuario_Form, Cadastro_Perfil_PF_Form, Cadastro_Perfil_PJ_Form
 
 
-# redirecionar login para dahsboard do usuário
+
+# USUÁRIO
+# Redirecionar login para dahsboard do usuário
 def dashboard_View(request):
     object = User.objects.filter(id=request.user.id)
     template_name = 'account/dashboard.html'
     context = {
         'object': object,
     }
-    
     return render(request, template_name, context)
 
 
 
-# usuario
+# Listar usuários
 @user_passes_test(lambda u: u.is_superuser) # somente para superusuários
 def listar_usuarios(request):
     object = User.objects.all()
@@ -34,7 +33,8 @@ def listar_usuarios(request):
     return render(request, 'usuario/lista_usuarios.html', context)
 
 
-# editar dados de qualquer usuário - somente para superusuários
+
+# Editar dados de qualquer usuário - somente para superusuários
 class Editar_Usuarios_AdminView(LoginRequiredMixin, UpdateView):
     model = User
     template_name = 'usuario/editar_usuario.html'
@@ -45,7 +45,6 @@ class Editar_Usuarios_AdminView(LoginRequiredMixin, UpdateView):
         obj = form.save(commit=False)
         obj.save()
         return super().form_valid(form)
-
 
 
 class Detalhes_Usuario_View(LoginRequiredMixin, DetailView):
@@ -61,3 +60,47 @@ class Editar_Usuario_View(LoginRequiredMixin, UpdateView):
 
 
 
+# PERFIL
+class Cadastro_Perfil_View(LoginRequiredMixin, CreateView):
+    template_name = 'usuario/cadastro_perfil.html'
+    form_class = Cadastro_Perfil_PF_Form
+    success_url = reverse_lazy('usuario:approval')
+
+    # def direct_success_url(self):
+    #     user_pessoa = User.objects.filter(id=self.request.user.id)
+    #     if user_pessoa.pessoa == 'PF':
+    #         form_class = Cadastro_Perfil_PF_Form
+    #     else:
+    #         form_class = Cadastro_Perfil_PJ_Form
+    #     return form_class
+
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.user = self.request.user
+        obj.save()
+
+        disable_user = User.objects.get(id=self.request.user.id)
+        disable_user.is_active = False
+        disable_user.save()
+            
+        return super().form_valid(form)
+
+
+class Detalhes_Perfil_View(LoginRequiredMixin, DetailView):
+    model = Perfil_Usuario
+    template_name = 'detalhes_perfil.html'
+
+
+class Editar_Perfil_View(LoginRequiredMixin, UpdateView):
+    template_name = 'editar_perfil.html'
+    success_url = reverse_lazy('profile:list_user_profile')
+    
+    def direct_success_url(self):
+        user_pessoa = User.objects.filter(id=self.request.user.id)
+        if user_pessoa.pessoa == 'PF':
+            form_class = Cadastro_Perfil_PF_Form
+        else:
+            form_class = Cadastro_Perfil_PJ_Form
+        return form_class
+
+    
