@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser
 )
@@ -97,7 +98,10 @@ class Perfil_Usuario(models.Model):
             ('2', 'Reprovado'),
     }
 
-    user        = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+    )
     nome        = models.CharField('Nome/Razão Social', max_length=255, unique=True)
     cpf_cnpj    = models.CharField('CPF/CNPJ', max_length=17, unique=True)
     celular     = models.IntegerField('Celular', null=True)
@@ -113,11 +117,11 @@ class Perfil_Usuario(models.Model):
     atualizadoem = models.DateTimeField(auto_now=True, verbose_name=_('Atualizado em'))
 
     def __str__(self):
-        return self.user.email or self.nome or self.cpf_cnpj
+        return self.nome
 
     class Meta:
         verbose_name = 'Perfil'
-        verbose_name_plural = 'Perfis'
+
 
 
 

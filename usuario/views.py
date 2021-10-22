@@ -80,7 +80,7 @@ class Cadastro_Perfil_View(LoginRequiredMixin, CreateView):
         obj.save()
 
         disable_user = User.objects.get(id=self.request.user.id)
-        disable_user.is_active = False
+        disable_user.ativo = False
         disable_user.save()
             
         return super().form_valid(form)
