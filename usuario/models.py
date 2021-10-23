@@ -102,8 +102,8 @@ class Perfil_Usuario(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
     )
-    nome        = models.CharField('Nome/Razão Social', max_length=255, unique=True)
-    cpf_cnpj    = models.CharField('CPF/CNPJ', max_length=17, unique=True)
+    nome        = models.CharField(max_length=255, unique=True)
+    cpf_cnpj    = models.CharField(max_length=17, unique=True)
     celular     = models.IntegerField('Celular', null=True)
     
     cep         = models.CharField('Cep', max_length=8)

@@ -4,34 +4,91 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
- 
+
+    <link rel="stylesheet" type="text/css" href="_css/estilo.css"/>
+    <link rel="stylesheet" type="text/css" href="_css/form.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 
     <title>Perfil</title>
 </head>
 
 {% load crispy_forms_tags %}
 
-
 <div class="conteiner-fluid" style='margin-top:20px'>
     <div class="container">
+        <div>
+        <p>
+        </div>
         <div class="card">
             <div class="card-header">
-                <h4>Perfil do Usuário</h4>         
-                <br>
-                 <div class="conteiner">
-                    <form method="post">
-                        {% csrf_token %}
-                        {{ form|crispy }}
-                        <button class="btn btn-primary" type="submit" href="">Salvar</button>
-                    </form>
-                    <br>
-                </div> 
+                <form method="post" novalidate class="form-group" >
+                {% if user.pessoa == 'PF' %}
+                <h4>Cadastro de perfil para Pessoa Física</h4>
+                    {% csrf_token %}
+                      
+                    {{ form.non_field_errors }}
+                  
+                    {{ form.source.errors }}
+                    {{ form.source }}
+                    <fieldset><legend>Dados da pessoais</legend>
+                    <p>
+                        <label for="id_nome">Nome Completo:</label>
+                        <input class="form-control" id="id_nome" name="nome" type="text" />
+                    </p>
+                    <p>
+                        <label for="id_cpf_cnpj">CPF:</label>
+                        <input class="form-control" id="id_cpf_cnpj" name="cpf_cnpj" type="text" onkeypress="$(this).mask('000.000.000-00');"/>
+                    </p>
+                    <p>
+                        <label for="id_celular">{{ form.celular.label_tag }}</label>
+                        <input class="form-control" id="id_celular" name="celular" type="text" />
+                    </p>
+                </fieldset>
+                {% else %}
+                <h4>Cadastro de perfil para Pessoa Jurídica</h4>
+                    <fieldset><legend>Dados da empresa</legend>
+                    <p>
+                        <label for="id_nome">Razão Social:</label>
+                        <input class="form-control" id="id_nome" name="nome" type="text" />
+                    </p>
+                    <p>
+                        <label for="id_cpf_cnpj">CNPJ:</label>
+                        <input class="form-control" id="id_cpf_cnpj" name="cpf_cnpj" type="text" onkeypress="$(this).mask('00.000.000/0000-00')"/>
+                    </p>
+                    <p>
+                        <label for="id_celular">{{ form.celular.label_tag }}</label>
+                        <input class="form-control" id="id_celular" name="celular" type="text" onkeypress="$(this).mask('(00) 00000-0000');"/>
+                    </p>
+                    </fieldset>
+                    {% endif %}
+                    <fieldset><legend>Endereço</legend>
+                        <div class="form">
+                        <p>
+                            <label for="id_cep">{{ form.cep.label_tag }}</label>
+                            <input class="form-control" id="id_cep" name="cep" type="text" onkeypress="$(this).mask('00.000-000');"/>
+                        </p>
+                        <p>
+                            <label for="id_endereco">{{ form.endereco.label_tag }}</label>
+                            <input class="form-control" id="id_endereco" name="endereco" type="text"/>
+                        </p>
+                        <p>
+                            <label for="id_numero">{{ form.numero.label_tag }}</label>
+                            <input class="form-control" id="id_numero" name="numero" type="text"/>
+                        </p>
+                        <p>
+                            <label for="id_cidade">{{ form.cidade.label_tag }}</label>
+                            <input class="form-control" id="id_cidade" name="cidade" type="text"/>
+                        </p>
+                        <p>
+                            <label for="id_estado">{{ form.estado.label_tag }}</label>
+                            <input class="form-control" id="id_estado" name="estado" type="text"/>
+                        </p>
+                    </div>
+                    </fieldset>
+                    <button class="btn btn-primary" type="submit" href="">Salvar</button>
+                </form>
             </div>  
         </div>
     </div>
 </div>
-   
-
-
-
-

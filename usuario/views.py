@@ -68,7 +68,7 @@ class Cadastro_Perfil_View(LoginRequiredMixin, CreateView):
 
     # def direct_success_url(self):
     #     user_pessoa = User.objects.filter(id=self.request.user.id)
-    #     if user_pessoa.pessoa == 'PF':
+    #     if user_pessoa['pessoa'] == 'PF':
     #         form_class = Cadastro_Perfil_PF_Form
     #     else:
     #         form_class = Cadastro_Perfil_PJ_Form
