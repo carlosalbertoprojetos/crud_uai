@@ -33,7 +33,7 @@ class UserAdmin(BaseUserAdmin):
         ('Usuário', {'fields': ('email', 'pessoa',)}),
         ('Permissões', {
             'classes': ('collapse',),
-            'fields': ('groups', 'user_permissions'),}),
+            'fields': ('ativo', 'groups', 'user_permissions'),}),
         ('Registros', {
             'classes': ('collapse',),
             'fields': ('last_login', 'data_registro')

@@ -20,8 +20,11 @@ urlpatterns = [
     # Perfis
     path('perfil/',views.Cadastro_Perfil_View.as_view(), name='cadastro_perfil'),
     path('aprovacao/', TemplateView.as_view(template_name='account/profile_message.html'), name='approval'),
-    # path('<int:pk>/editar/perfil/PF/',views.Editar_Perfil_PF_View.as_view(), name='editar_perfil_PF'),
-    # path('<int:pk>/editar/perfil/PJ/',views.Editar_Perfil_PJ_View.as_view(), name='editar_perfil_PJ'),
+    path('<int:pk>/detalhes/perfil/', views.Detalhes_Perfil_View.as_view(), name='destalhes_usuario'),
+    path('<int:pk>/editar/perfil/',views.Editar_Perfil_View.as_view(), name='editar_perfil'),
 ]
+
+
+
 
 
