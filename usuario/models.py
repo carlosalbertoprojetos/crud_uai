@@ -102,15 +102,15 @@ class Perfil_Usuario(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
     )
-    nome        = models.CharField(max_length=255, unique=True)
-    cpf_cnpj    = models.CharField(max_length=17, unique=True)
-    celular     = models.IntegerField('Celular', null=True)
+    nome        = models.CharField(max_length=255, unique=True, null=False, blank=False)
+    cpf_cnpj    = models.CharField(max_length=17, unique=True, null=False, blank=False)
+    celular     = models.CharField('Celular', max_length=18, null=False, blank=False)
     
-    cep         = models.CharField('Cep', max_length=8)
-    endereco    = models.CharField('Endereco', max_length=255)
-    numero      = models.CharField('Número', max_length=8)
-    cidade      = models.CharField('Cidade', max_length=255)
-    estado      = models.CharField('Estado', max_length=255)    
+    cep         = models.CharField('Cep', max_length=8, null=False, blank=False)
+    endereco    = models.CharField('Endereco', max_length=255, null=False, blank=False)
+    numero      = models.CharField('Número', max_length=8, null=False, blank=False)
+    cidade      = models.CharField('Cidade', max_length=255, null=False, blank=False)
+    estado      = models.CharField('Estado', max_length=255, null=False, blank=False)    
     
     situacao    = models.CharField('Situação', max_length=13, choices=PROFILE_SITUACAO, default='Pendente')
 

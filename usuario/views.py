@@ -66,13 +66,11 @@ class Cadastro_Perfil_View(LoginRequiredMixin, CreateView):
     form_class = Cadastro_Perfil_PF_Form
     success_url = reverse_lazy('usuario:approval')
 
-    # def direct_success_url(self):
-    #     user_pessoa = User.objects.filter(id=self.request.user.id)
-    #     if user_pessoa['pessoa'] == 'PF':
-    #         form_class = Cadastro_Perfil_PF_Form
-    #     else:
-    #         form_class = Cadastro_Perfil_PJ_Form
-    #     return form_class
+    def get_form_class(self):
+        pessoa = User.objects.get(id=self.request.user.id)
+        if pessoa.pessoa ==  'PJ':
+            form_class=Cadastro_Perfil_PJ_Form
+        return form_class
 
     def form_valid(self, form):
         obj = form.save(commit=False)
@@ -86,21 +84,22 @@ class Cadastro_Perfil_View(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
+
 class Detalhes_Perfil_View(LoginRequiredMixin, DetailView):
     model = Perfil_Usuario
     template_name = 'detalhes_perfil.html'
 
 
+
 class Editar_Perfil_View(LoginRequiredMixin, UpdateView):
     template_name = 'editar_perfil.html'
+    form_class = Cadastro_Perfil_PF_Form
     success_url = reverse_lazy('profile:list_user_profile')
     
-    def direct_success_url(self):
-        user_pessoa = User.objects.filter(id=self.request.user.id)
-        if user_pessoa.pessoa == 'PF':
-            form_class = Cadastro_Perfil_PF_Form
-        else:
-            form_class = Cadastro_Perfil_PJ_Form
+    def get_form_class(self):
+        pessoa = User.objects.get(id=self.request.user.id)
+        if pessoa.pessoa ==  'PJ':
+            form_class=Cadastro_Perfil_PJ_Form
         return form_class
 
     
