@@ -51,10 +51,12 @@
                     <a class="pure-menu-heading" href="{% url 'account_change_password' %}">Senha</a>
                     </li>
                     <li class="pure-menu-heading">
-                    <a class="pure-menu-heading" href="{% url 'usuario:destalhes_usuario' user.pk %}">Perfil</a>
+                    <a class="pure-menu-heading" href="{% url  'usuario:detalhes_perfil' user.pk %}">Perfil</a>
                     </li>
                     <li class="pure-menu-heading">
-                    <a class="pure-menu-heading" href="">Outros</a>
+                    <a class="pure-menu-heading" href="{% url 'usuario:detalhes_perfil2' user.pk %}">Perfil2</a>
+                    </li>
+                    <a class="pure-menu-heading" href="{{ user.get_absolute_url_perfil }}">Perfil3</a>
                     </li>
                     <li class="pure-menu-heading">
                     <a class="pure-menu-heading" href="">Outros</a>

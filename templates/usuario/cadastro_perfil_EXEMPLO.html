@@ -37,7 +37,7 @@
                     </p>
                     <p>
                         <label for="id_celular">{{ form.celular.label_tag }}</label>
-                        <input class="form-control" id="id_celular" name="celular" type="text" />
+                        <input class="form-control" id="id_celular" name="celular" type="tel" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"/>
                     </p>
                     </fieldset>
                     <fieldset><legend>Endereço</legend>
@@ -79,7 +79,7 @@
                     </p>
                     <p>
                         <label for="id_celular">{{ form.celular.label_tag }}</label>
-                        <input class="form-control" id="id_celular" name="celular" type="text" onkeypress="$(this).mask('(00)00000-0000');"/>
+                        <input class="form-control" id="id_celular" name="celular" type="text" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"/>
                     </p>
                     </fieldset>
                     <fieldset><legend>Endereço</legend>

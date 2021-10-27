@@ -16,9 +16,10 @@
     {% for user in object %}
     <div class="card">
         <div class="card-body">
-            <h3 class="title">Tipo: <a href="{% url 'usuario:editar_usuarios_admin' user.pk %}"> {{ user.username }}</a></h3>
-            <h6>Email:{{ user.email }} <br>
-                Ativo: {{ user.is_active }} 
+            <h3 class="title">Email: <a href="{% url 'usuario:editar_usuarios_admin' user.pk %}"> {{ user.email }}</a></h3>
+            <h6>Tipo:{{ user.pessoa }} <br>
+                Registrado em: {{ user.data_registro }} <br>
+                Usuário ativo: {{ user.is_active }} 
             </a></h6>
         </div>
     </div>

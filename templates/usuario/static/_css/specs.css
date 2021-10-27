@@ -1,0 +1,23 @@
+@charset "UTF-8";
+
+img#glass {
+	width: 50%;
+}
+
+section#conteudo {
+	width: 1000px;
+	margin: auto;
+}
+
+iframe#frame-spec {
+	width: 495px;
+	height: 280px;
+	border: none;
+    overflow: hidden;
+	/* serve para ocultar as barras de rolagem */
+}
+
+iframe#frame-spec::-webkit-scrollbar {
+	display: none;
+}
+

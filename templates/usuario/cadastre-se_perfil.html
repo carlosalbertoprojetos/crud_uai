@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/js/bootstrap.min.js"></script>
+
+
+    <!-- <link rel="stylesheet" type="text/css" href="_css/estilo.css"/>
+    <link rel="stylesheet" type="text/css" href="_css/form.css"> -->
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+
+    <title>Perfil</title>
+</head>
+
+{% load crispy_forms_tags %}
+
+<div class="conteiner-fluid">
+    <div class="container" style='background-color:rgb(250, 250, 250)'>
+        <div class="row justify-content-center" style='background-color:rgb(250, 250, 250)'>
+            <div class='col-md-2' style='margin-top:40px'>
+                <img src="media/uai.png">
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div class="container-fluid row align-items-left justify-content-center" style='background-color:rgb(250, 250, 250)'>
+            <div class='col-md-4'>
+                <div class="align-items-center" style='background-color:rgb(250, 250, 250)'> 
+                    <form class="form-group col-md-14" style='color:rgb(33, 64, 240)' autocomplete='off'>
+                    <h2 class="align-items-left">Cadastre-se</h2><br>
+                    <div class="container-fluid btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-primary active" >
+                            <input type="radio" name="options" id="option1" checked> Pessoa Física
+                        </label>
+                        <label class="btn btn-primary">
+                            <input type="radio" name="options" id="option2" > Pessoa Jurídica
+                        </label>
+                    </div>
+                    <br>
+                    <br>
+                    <div>
+                        <p><input placeholder="Email" class="form-control" id="id_email" name="email" type="email" /></p>
+                    </div>
+                    <div>                        
+                        <p><input placeholder="Confirme seu email" class="form-control" id="id_cemail" name="cemail" type="email" /></p>
+                    </div>
+                    <div>                        
+                        <p><input placeholder="Senha" class="form-control" id="id_senha" name="senha" type="password" /></p>
+                    </div>
+                    <br>
+                    <button class="btn btn-info btn-block" type="submit" href=""  style='background-color:rgb(33, 64, 240)'>CRIAR CONTA</button>
+                    </form>
+                <div>
+                <br>
+                <br>
+                </div>
+                <div>
+                <br>
+                <br>
+                <div>
+                <br>
+                <br>
+                <div>
+                <br>
+                <br>
+                </div>
+                <div>
+                <br>
+                <br>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <footer class="footer navbar-fixed-bottom py-3 my-4" style='background-color:rgb(33, 64, 240)'>
+            <ul class="nav justify-content-center pb-3 mb-3" style='font-size:12px; '>
+                <div class="col-md-6">
+                    <b><li style="display:inline; color:white" class="nav-item">Termos e Condições  </li></b>
+                    <b><li style="display:inline; color:white" class="nav-item">Política de privacidade  </li></b>
+                    <b><li style="display:inline; color:white" class="nav-item">Entre em contato</li></b>
+                </div>
+                <div class="col-md-5">
+                    <p class="text" style='text-align:right; color:white'>© 2021 Company, Diários Associados - Todos os direitos reservados</p>
+                </div>
+            </b>
+            </ul>
+        </footer>
+    </div>
+</div>
+

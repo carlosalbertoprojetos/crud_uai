@@ -4,6 +4,7 @@ from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser
 )
 from django.contrib.auth.models import PermissionsMixin
+from django.urls.base import reverse
 from django.utils.translation import gettext as _
 
 from datetime import datetime
@@ -99,11 +100,11 @@ class Perfil_Usuario(models.Model):
     }
 
     user = models.OneToOneField(
-        settings.AUTH_USER_MODEL,
+        User,
         on_delete=models.CASCADE,
     )
     nome        = models.CharField(max_length=255, unique=True, null=False, blank=False)
-    cpf_cnpj    = models.CharField(max_length=17, unique=True, null=False, blank=False)
+    cpf_cnpj    = models.CharField(max_length=18, unique=True, null=False, blank=False)
     celular     = models.CharField('Celular', max_length=18, null=False, blank=False)
     
     cep         = models.CharField('Cep', max_length=8, null=False, blank=False)
@@ -123,6 +124,7 @@ class Perfil_Usuario(models.Model):
         verbose_name = 'Perfil'
 
 
-
+    def get_absolute_url_perfil(self):
+        return reverse('usuario:destalhes_perfil2', args=[self.id])
 
 

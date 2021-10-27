@@ -10,7 +10,7 @@ app_name = 'usuario'
 
 urlpatterns = [
     path('painel/', views.dashboard_View, name='dashboard'),
-    path('<int:pk>/detalhes/', views.Detalhes_Usuario_View.as_view(), name='destalhes_usuario'),
+    # path('<int:pk>/detalhes/', views.Detalhes_Usuario_View.as_view(), name='detalhes_usuario'),
     path('<int:pk>/editar/', views.Editar_Usuario_View.as_view(), name='editar_usuario'),
 
     # Acesso por usuários admin
@@ -20,8 +20,14 @@ urlpatterns = [
     # Perfis
     path('perfil/',views.Cadastro_Perfil_View.as_view(), name='cadastro_perfil'),
     path('aprovacao/', TemplateView.as_view(template_name='account/profile_message.html'), name='approval'),
-    path('<int:pk>/detalhes/perfil/', views.Detalhes_Perfil_View.as_view(), name='destalhes_usuario'),
-    path('<int:pk>/editar/perfil/',views.Editar_Perfil_View.as_view(), name='editar_perfil'),
+
+
+    path('<int:pk>/detalhes/per/user/', views.Detalhes_Perfil_View.as_view(), name='detalhes_perfil'),
+
+    path('<int:pk>/detalhes/perfil/', views.detalhes_perfil_user, name='detalhes_perfil2'),
+
+    
+    path('editar/perfil/', views.Editar_Perfil_View.as_view(), name='editar_perfil'),
 ]
 
 
