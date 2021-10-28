@@ -9,9 +9,6 @@ from .models import Perfil_Usuario
 
 class Perfil_Usuario_Admin(admin.StackedInline):
     model = Perfil_Usuario
-    # add_form = Perfil_Form
-    # list_display = ('nome', 'user', 'cpf_cnpj', 'celular', 'situacao',)
-    # list_filter = ('nome', 'cpf_cnpj', )
     fieldsets = (
         ('Permissões', {'fields': ('situacao',)}),
         ('Usuário', {'fields': (('nome', 'cpf_cnpj'),)}),
@@ -21,12 +18,6 @@ class Perfil_Usuario_Admin(admin.StackedInline):
             'fields': ('cep', ('endereco', 'numero'), ('cidade', 'estado'),
             )}),
     )
-    # search_fields = ('nome', 'email', 'cpf_cnpj',)
-    # ordering = ('-nome', )
-
-
-# admin.site.register(Perfil_Usuario, Perfil_Usuario_Admin)
-
 
 class UserAdmin(BaseUserAdmin):
     fieldsets = (
@@ -55,26 +46,5 @@ class UserAdmin(BaseUserAdmin):
     ]
 
 admin.site.register(get_user_model(), UserAdmin)
-
-
-
-
-# class Perfil_Usuario_Admin(admin.ModelAdmin):
-#     model = Perfil_Usuario
-#     add_form = Perfil_Form
-#     list_display = ('nome', 'user', 'cpf_cnpj', 'celular', 'situacao',)
-#     list_filter = ('nome', 'cpf_cnpj', )
-#     fieldsets = (
-#         ('Usuário', {'fields': ('nome', 'user', )}),
-#         ('Documento', {'fields': ('cpf_cnpj',)}),
-#         ('Contato', {'fields': ('celular',)}),
-#         ('Endereço', {'fields': ('cep', 'endereco', 'numero', 'cidade', 'estado',)}),
-#         ('Permissões', {'fields': ('situacao', )}),
-#     )
-#     search_fields = ('nome', 'email', 'cpf_cnpj',)
-#     ordering = ('-nome', )
-
-
-# admin.site.register(Perfil_Usuario, Perfil_Usuario_Admin)
 
 

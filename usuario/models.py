@@ -1,5 +1,6 @@
 from django.db import models
-from django.conf import settings
+from django.db.models.signals import post_save
+# from django.conf import settings
 from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser
 )
@@ -118,13 +119,14 @@ class Perfil_Usuario(models.Model):
     atualizadoem = models.DateTimeField(auto_now=True, verbose_name=_('Atualizado em'))
 
     def __str__(self):
-        return self.nome
+        return str(self.nome)
 
     class Meta:
         verbose_name = 'Perfil'
 
 
     def get_absolute_url_perfil(self):
-        return reverse('usuario:destalhes_perfil2', args=[self.id])
+        return reverse('usuario:destalhes_perfil2', args=[self.user.id])
+
 
 

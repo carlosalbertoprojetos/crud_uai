@@ -1,50 +1,49 @@
-{% extends 'usuario/detalhes_usuario.html' %}
+{% extends 'account/dashboard.html' %}
 
 <head>
     <link rel="stylesheet" type="text/css" href="static/_css/estilo.css"/>
     <link rel="stylesheet" type="text/css" href="static/_css/form.css">
 </head>
 
-{% block perfil %}
-<div class="container" style='margin-top:2px'>
+{% block dashboard %}
+<div class="container">
     <div class="card">
         <div class="container">
-        <h1>Perfil do Usuário</h1>
-        <form>
-            <fieldset id='pessoais'><legend>Dados Pessoais<label>
-                <h6 class="font-weight mt-3">Dados do Perfil</h6>
-                Email: {{ object.user.email }} {{ object.email }}
-                Pessoa {{ object.user.pessoa }}
+            <h1>Perfil do Usuário</h1>
+            <div class="">
+                <p><h5>Email: {{ object.user.email }} / {{ object.user.pessoa }}</h5></p>
                 <hr>
-                {% if object.user.pessoa == 'PF' %}
-                <h5>Nome: {{ object.name }}     /     CPF: {{ object.cpf_cnpj }} </h5><br>
-                {% else %}
-                <h5>Razão Social: {{ object.name }}     /     CNPJ: {{ object.cpf_cnpj }}</h5><br>
-                {% endif %}
-                <h5> Celular: {{ object.celular }}</h5>
-            </fieldset>
-            <fieldset id='endereco'><legend>Endereço<label>
-                <h6 class="font-weight mt-3"></h6>
+                <fieldset id='pessoais'><legend>Dados Pessoais</legend>
+                    <hr>
+                    <p>
+                    {% if object.user.pessoa == 'PF' %}
+                    <h5>Nome: {{ object.nome }}</h5>
+                    <h5>CPF: {{ object.cpf_cnpj }}</h5>
+                    {% else %}
+                    <h5>Razão Social: {{ object.nome }}</h5>
+                    <h5>CNPJ: {{ object.cpf_cnpj }}</h5>
+                    {% endif %}
+                    <h5>Celular: {{ object.celular }}</h5></p>
+                </fieldset>
                 <hr>
-                <h5>Cep: {{ object.cep }}</h5>
-                <h5><p>Av.: {{ object.endereco }} / 
-                Nº: {{ object.numero }} / Compl.: --- </p>
-                <p>Cidade: {{ object.cidade }} / {{ object.estado }}</p><h5><br> 
-            </fieldset>
-                
-            <fieldset id='sit_cadastral'><legend>Situação Cadastral<label>
-                <h5><p>Situação: {{ object.situacao }}</p>
-                <p>Daldos alterado em : {{ object.atualizadoem|date }}</p></h5><br> 
-            </fieldset>
-                
-            <fieldset id=''><legend><label>
-
-            </fieldset>
-        </form>
-
-        <div>
-        <a href="" class='btn btn-primary'>Editar</a>
+                <fieldset id='endereco'><legend>Endereço</legend><hr>
+                    <p>
+                    <h5>Cep: {{ object.cep }}</h5>
+                    <h5>Av.: {{ object.endereco }}</h5>
+                    <h5>Nº: {{ object.numero }}</h5>
+                    <h5>Compl.: --- </h5></p>
+                    <p><h5>Cidade: {{ object.cidade }} / {{ object.estado }}</p></h5> 
+                </fieldset>
+                <hr>
+                <fieldset id='sit_cadastral'><legend>Situação Cadastral</legend><hr>
+                    <p>
+                    <h5>{{ object.situacao }} <br> 
+                    Última alteração: {{ object.atualizadoem|date }}</h5></p><br> 
+                </fieldset>
+            <a href="{% url 'usuario:editar_perfil' request.user.id%}" class='btn btn-primary'>Editar</a>
         </div>
+
     </div>
+    <br>
 </div>
-{% endblock perfil %}
+{% endblock dashboard %}

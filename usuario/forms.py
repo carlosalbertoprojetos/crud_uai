@@ -46,6 +46,7 @@ class Cadastro_Perfil_PF_Form(forms.ModelForm):
         model   = Perfil_Usuario
         fields  = ['nome', 'cpf_cnpj', 'celular', 'cep', 'endereco', 'numero', 'cidade', 'estado']
 
+
 class Cadastro_Perfil_PJ_Form(forms.ModelForm):
     nome       = forms.CharField(label='Razão Social')
     cpf_cnpj   = forms.CharField(label='CNPJ')
@@ -74,5 +75,8 @@ class Editar_Usuario_Admin(forms.ModelForm):
         user = super(Editar_Usuario_Admin, self).save(request)
         user.email = self.cleaned_data['email']
         return user
+
+        
+
 
         

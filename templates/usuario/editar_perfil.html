@@ -13,9 +13,19 @@
             <div class="container">
                 <h4>Editar Perfil</h4>
                 <hr>
-                <form method="post">
+                <form method="post" action="{% url 'usuario:salvar_perfil' request.user.id %}">
                 {% csrf_token %}
-                {{ form|crispy }}
+                <p><lable>Usuário: {{ request.user}}</lable></p>
+                <!-- <select name='user' required id='id_user'><option value='{{ request.user.id }}' selected>{{ request.user}}</option> -->
+                <p><label for='id_nome'>Nome: </label><input type='text' id='id_nome' name='nome' value='{{ form.nome }}'></p>
+                <p><label for='id_cpf_cnpj'>Registro: </label><input type='text' id='id_cpf_cnpj' name='cpf_cnpj' value='{{ form.cpf_cnpj }}'></p>
+                <p><label for='id_celular'>Celular: </label><input type='text' id='id_celular' name='celular' value='{{ form.celular }}'></p>
+                <p><label for='id_cep'>Cep: </label><input type='text' id='id_cep' name='cep' value='{{ form.cep }}'></p>
+                <p><label for='id_endereco'>Endereco: </label><input type='text' id='id_endereco' name='endereco' value='{{ form.endereco }}'></p>
+                <p><label for='id_numero'>Numero: </label><input type='text' id='id_numero' name='numero' value='{{ form.numero }}'></p>
+                <p><label for='id_cidade'>Cidade: </label><input type='text' id='id_cidade' name='cidade' value='{{ form.cidade }}'></p>
+                <p><label for='id_estado'>Estado: </label><input type='text' id='id_estado' name='estado' value='{{ form.estado }}'></p>
+                <br><br>
                 <button class="btn btn-primary" type="submit" href="#">Salvar</button>
                 </form>
             </div>

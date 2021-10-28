@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import DetailView
 from django.views.generic.edit import CreateView, UpdateView
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 
 
@@ -27,30 +27,6 @@ class Detalhes_Usuario_View(LoginRequiredMixin, DetailView):
     template_name = 'usuario/detalhes_perfil.html'
 
 
-    def get_context_data(self, **kwargs):
-        usuario = super().get_context_data(**kwargs)
-        object = Perfil_Usuario.objects.filter(id=self.user.id)
-        context = {
-        'usuario':usuario,
-        'object': object,
-        }
-        return context
-
-
-def detalhes_perfil_user(request, pk):
-    object = Perfil_Usuario.objects.filter(user__pk=request.user.pk)
-    template_name = 'usuario/detalhes_perfil.html'
-    context = {
-        'object': object,
-    }
-    return render(request, template_name, context)
-
-
-
-
-
-
-
 # Listar usuários
 @user_passes_test(lambda u: u.is_superuser) # somente para superusuários
 def listar_usuarios(request):
@@ -73,11 +49,6 @@ class Editar_Usuarios_AdminView(LoginRequiredMixin, UpdateView):
         obj = form.save(commit=False)
         obj.save()
         return super().form_valid(form)
-
-
-# class Detalhes_Usuario_View(LoginRequiredMixin, DetailView):
-#     model = User
-#     template_name = 'usuario/detalhes_usuario.html'
 
 
 class Editar_Usuario_View(LoginRequiredMixin, UpdateView):
@@ -114,44 +85,44 @@ class Cadastro_Perfil_View(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class Detalhes_Perfil_View(LoginRequiredMixin, DetailView):
-    model = Perfil_Usuario
-    template_name = 'usuario/detalhes_perfil.html'
 
 
-# def detalhes_perfil_user(request):
-#     object = Perfil_Usuario.objects.filter(id=request.user.id)
-#     template_name = 'usuario/detalhes_perfil.html'
-#     context = {
-#         'object': object,
-#     }
-#     return render(request, template_name, context)
+def detalhes_perfil_user(request, user_id):
+    object = Perfil_Usuario.objects.get(user_id=user_id)
+    return render(request, 'usuario/detalhes_perfil.html', {'object': object})
 
 
+def editar_perfil(request, user_id):
+    form = Perfil_Usuario.objects.get(user_id=user_id)
+    context = {
+        'form': form,
+    }
+    return render(request, 'usuario/editar_perfil.html', context)
 
 
+def salvar_perfil(request, user_id):
+    form = Perfil_Usuario.objects.get(user_id=user_id)
+    nome            = request.POST.get('nome')
+    cpf_cnpj        = request.POST.get('cpf_cnpj')
+    celular         = request.POST.get('celular')
+    cep             = request.POST.get('cep')
+    endereco        = request.POST.get('endereco') 
+    numero          = request.POST.get('numero')
+    cidade          = request.POST.get('cidade')   
+    estado          = request.POST.get('estado')
+    form.user_id    = user_id
+    form.nome       = nome
+    form.cpf_cnpj   = cpf_cnpj
+    form.celular    = celular
+    form.cep        = cep
+    form.endereco   = endereco
+    form.numero     = numero
+    form.cidade     = cidade
+    form.estado     = estado
+    form.save()
+    return redirect('usuario:detalhes_perfil', user_id)
 
-# class Editar_Perfil_View(LoginRequiredMixin, UpdateView):
-#     template_name = 'usuario/editar_perfil.html'
-    # form_class = Cadastro_Perfil_PF_Form
-    # success_url = reverse_lazy('usuario:dashboard')
-    
-    # def get_form_class(self):
-    #     if self.user.pessoa ==  'PJ':
-    #         form_class=Cadastro_Perfil_PJ_Form
-    #     return form_class
 
-    # def form_valid(self, form):
-    #     obj = form.save(commit=False)
-    #     obj.user = self.request.user
-    #     obj.save()  
-
-
-class Editar_Perfil_View(UpdateView):
-    model = Perfil_Usuario
-    fields = '__all__'
-    template_name = 'usuario/editar_perfil.html'
-    # success_url = reverse_lazy('usuario:dashboard')
 
 
 
