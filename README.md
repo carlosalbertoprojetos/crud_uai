@@ -2,7 +2,7 @@
 
 Este repositório faz parte do projeto **CRUD UAI**, desenvolvido para atender às necessidades de um importante veículo de comunicação de Minas Gerais. A aplicação inclui um **sistema de login personalizado**, projetado com características específicas solicitadas pelo contratante, proporcionando maior segurança, flexibilidade e adequação ao contexto do cliente.
 
-## 💡 **Sobre o Projeto**
+## **Sobre o Projeto**
 
 O sistema de login foi projetado para:
 
@@ -16,13 +16,13 @@ O sistema de login foi projetado para:
 - **Segurança**: Implementação de práticas recomendadas para proteção de credenciais e autenticação.
 - **Flexibilidade**: Suporte a diferentes níveis de acesso com base em permissões específicas.
 
-## 🛠️ **Tecnologias Utilizadas**
+## **Tecnologias Utilizadas**
 
 - **Django** 4.x: Framework utilizado para backend e gerenciamento de usuários.
 - **Bootstrap**: Para criar uma interface limpa e responsiva.
 - **SQLite**: Banco de dados padrão para armazenar usuários e suas permissões durante o desenvolvimento.
 
-## 🚀 **Configuração e Uso**
+## **Configuração e Uso**
 
 ### 1. Clone o repositório:
 
@@ -56,23 +56,23 @@ python manage.py runserver
 
 Abra [http://127.0.0.1:8000/](http://127.0.0.1:8000/) e explore o sistema de login personalizado.
 
-## 🌟 **Diferenciais do Sistema de Login**
+## **Diferenciais do Sistema de Login**
 
 - **Design Responsivo**: Interface adaptada para dispositivos móveis e desktops.
 - **Múltiplos Níveis de Acesso**: Configuração granular de permissões por tipo de usuário.
 - **Fluxo Personalizado**: Autenticação e registro ajustados para as necessidades específicas do contratante.
 
-## 📚 **Futuras Implementações**
+## **Futuras Implementações**
 
 - Integração com autenticação de dois fatores (2FA).
 - Logs de atividade detalhados para maior rastreabilidade.
 - Suporte a Single Sign-On (SSO) em sistemas externos.
 
-## 📄 **Licença**
+## **Licença**
 
 Este projeto está licenciado sob a [Licença MIT](LICENSE). O código pode ser utilizado e adaptado para projetos similares, respeitando os termos da licença.
 
 ---
 
-💻 Desenvolvido por [Carlos Alberto Medeiros](https://www.linkedin.com/in/carlos-alberto-medeiros-29aa6258/)  
-🌟 Adaptando soluções tecnológicas às demandas únicas de cada cliente!
+Desenvolvido por [Carlos Alberto Medeiros](https://www.linkedin.com/in/carlos-alberto-medeiros-29aa6258/)  
+Adaptando soluções tecnológicas às demandas únicas de cada cliente!
